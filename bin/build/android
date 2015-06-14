@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Usage: bin/build/android [dev|staging|prod]
+
+set -o nounset
+set -o errexit
+
+TARGET_ENV=$1
+
+cordova plugin list | grep console && cordova plugin rm org.apache.cordova.console
+gulp sass import-libs $TARGET_ENV
+cordova build --release android
